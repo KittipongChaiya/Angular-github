@@ -1,0 +1,13 @@
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 50px;
+  }
+  
+  .form-section {
+    width: 45%;
+  }
+  
+  .output-section {
+    width: 45%;
+  }

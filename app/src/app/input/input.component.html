@@ -1,0 +1,31 @@
+<p>input works!</p>
+<div class="input-container">
+    <div class="form-section">
+      <h3>กรอกข้อมูล</h3>
+      <form (ngSubmit)="submitForm()">
+        <label for="name">ชื่อ:</label>
+        <input type="text" id="name" [(ngModel)]="name" name="name" required>
+  
+        <label for="phone">เบอร์โทรศัพท์:</label>
+        <input type="text" id="phone" [(ngModel)]="phone" name="phone" required>
+  
+        <button type="submit">ส่งข้อมูล</button>
+      </form>
+      <hr>
+      <div *ngIf="age !== null && imageUrl">
+        <h3>ข้อมูลที่แสดงผล:</h3>
+        <p>ชื่อ: {{ submittedName }}</p>
+        <p>เบอร์โทรศัพท์: {{ submittedPhone }}</p>
+        <p>อายุ: {{ age }}</p>
+        <img [src]="imageUrl" alt="image" width="300">
+      </div>
+    </div>
+  
+    <div class="output-section">
+      <app-output 
+        [name]="submittedName" 
+        [phone]="submittedPhone" 
+        (additionalInfo)="receiveAdditionalInfo($event)">
+      </app-output>
+    </div>
+  </div>

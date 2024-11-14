@@ -1,0 +1,23 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+    <div>
+      <label for="username">Username :&nbsp;</label>
+      <input type="text" id="username" formControlName="username">
+      <div *ngIf="loginForm.get('username') 
+   && (loginForm.get('username') 
+   || loginForm.get('username'))">
+        <span class="login-text">โปรดใส่ Username</span>
+      </div>
+    </div>
+  
+    <div>
+      <label for="password">Password :&nbsp;</label>
+      <input type="password" id="password" formControlName="password">
+      <div  
+   *ngIf="loginForm.get('password') && (loginForm.get('password') || loginForm.get('password'))">
+  
+        <span class="login-text">โปรดใส่ Password</span>
+      </div>
+    </div>
+  
+    <button type="submit" [disabled]="!loginForm.valid" >Login</button>
+  </form>

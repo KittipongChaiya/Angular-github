@@ -1,0 +1,19 @@
+<p>output works!</p>
+<div *ngIf="name && phone">
+    <h3>ข้อมูลที่ได้รับ:</h3>
+    <p>ชื่อ: {{ name }}</p>
+    <p>เบอร์โทรศัพท์: {{ phone }}</p>
+  </div>
+  <hr>
+  <div class="output-form">
+    <h3>กรอกข้อมูลเพิ่มเติม</h3>
+    <form (ngSubmit)="submitAdditionalInfo()">
+      <label for="age">อายุ:</label>
+      <input type="number" id="age" [(ngModel)]="age" name="age" required>
+  
+      <label for="imageUrl">ที่อยู่รูปภาพ (URL):</label>
+      <input type="text" id="imageUrl" [(ngModel)]="imageUrl" name="imageUrl" required>
+  
+      <button type="submit">ส่งข้อมูลเพิ่มเติม</button>
+    </form>
+  </div>

@@ -1,0 +1,150 @@
+<div class="content-wrapper">
+    <div class="header">
+        <div class="title-container">
+            <div class="title">ข้อมูลพนักงาน</div>   
+        </div>
+    </div>
+      
+    <dx-data-grid 
+        [dataSource]="employees"
+        [showBorders]="true"
+        [columnAutoWidth]="true"
+        [rowAlternationEnabled]="false"
+        [showColumnLines]="true"
+        [showColumnHeaders]="true"
+        [hoverStateEnabled]="true"
+        [allowColumnReordering]="true"
+        [allowColumnResizing]="true"
+        [showRowLines]="true"
+        [selection]="{ mode: 'multiple' }"
+        (onRowUpdating)="onRowUpdating($event)"
+        (onRowInserting)="onRowInserting($event)"
+        (onRowRemoving)="onRowRemoving($event)">
+        
+        <dxo-editing
+            mode="row"
+            [allowUpdating]="true"
+            [allowDeleting]="true"
+            [allowAdding]="true"
+            [useIcons]="true">
+        </dxo-editing>
+
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-paging [pageSize]="5"></dxo-paging>
+        <dxo-export [enabled]="true" [allowExportSelectedData]="true"></dxo-export>
+        
+        <dxo-toolbar>
+            <dxi-item name="addRowButton" showText="always"></dxi-item>
+            <dxi-item location="before">
+                <dx-button
+                  icon="columnchooser"
+                  text="ColumnChooser"
+                  (onClick)="showSelectColumnChooser()">
+                </dx-button>
+            </dxi-item>
+            <dxi-item location="after">
+              <dx-button
+                icon="exportxlsx"
+                text="Export ทั้งหมดเป็น Excel"
+                (onClick)="exportToExcel(false)">
+              </dx-button>
+            </dxi-item>
+            <dxi-item location="after">
+                <dx-button
+                  icon="exportxlsx"
+                  text="Export ที่เลือกเป็น Excel"
+                  (onClick)="exportToExcel(true)">
+                </dx-button>
+              </dxi-item>
+              <dxi-item location="after">
+                <dx-button
+                  icon="exportpdf"
+                  text="Export ทั้งหมดเป็น PDF"
+                  (onClick)="exportToPdf(false)">
+                </dx-button>
+              </dxi-item>
+              <dxi-item location="after">
+                <dx-button
+                  icon="exportpdf"
+                  text="Export ที่เลือกเป็น PDF"
+                  (onClick)="exportToPdf(true)">
+                </dx-button>
+              </dxi-item>
+        </dxo-toolbar>
+
+        <dxo-pager 
+            [visible]="true"
+            [showPageSizeSelector]="true"
+            [allowedPageSizes]="[5, 10, 20, 'all']"
+            [showInfo]="true"
+            [showNavigationButtons]="true">
+        </dxo-pager>
+
+        <dxo-column-chooser
+            [enabled]="true"
+            [mode]="'dragAndDrop'"
+            [title]="'เลือกคอลัมน์'">
+        </dxo-column-chooser>
+
+        <dxi-column
+            dataField="picture"
+            caption="รูปภาพ"
+            [width]="100"
+            alignment="center"
+            [allowFiltering]="false"
+            [allowSorting]="false"
+            cellTemplate="pictureTemplate">
+        </dxi-column>
+
+        <dxi-column 
+            dataField="name" 
+            caption="ชื่อ-นามสกุล"
+            alignment="center"
+            [width]="500"
+            [allowHiding]="false">
+            <dxi-validation-rule type="required" message="กรุณากรอกชื่อ-นามสกุล"></dxi-validation-rule>
+        </dxi-column>
+  
+        <dxi-column 
+            dataField="position"
+            caption="ตำแหน่ง"
+            alignment="center">
+            <dxo-lookup
+                [dataSource]="positionList"
+                displayExpr="this"
+                valueExpr="this">
+            </dxo-lookup>
+        </dxi-column>
+  
+        <dxi-column 
+            dataField="department"
+            caption="แผนก"
+            alignment="center">
+            <dxo-lookup
+                [dataSource]="departmentList"
+                displayExpr="this"
+                valueExpr="this">
+            </dxo-lookup>
+        </dxi-column>
+
+        <dxi-column 
+            dataField="department"
+            [groupIndex]="0">
+        </dxi-column>
+  
+        <dxi-column 
+            dataField="salary"
+            caption="เงินเดือน"
+            format="currency"
+            alignment="center">
+            <dxo-format type="currency" precision="2" currency="THB"></dxo-format>
+        </dxi-column>
+
+        <div *dxTemplate="let data of 'pictureTemplate'">
+            <img [src]="data.value" 
+                 class="employee-image" 
+                 [alt]="'Photo of ' + data.data.name"
+                 onError="this.src='assets/images/employees/default.png'"/>
+        </div>
+    </dx-data-grid>
+</div>

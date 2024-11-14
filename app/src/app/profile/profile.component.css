@@ -1,0 +1,10 @@
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    width: 100%;
+    padding: 20px;
+    background-color: #f0f0f0;
+  }
